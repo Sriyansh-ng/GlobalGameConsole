@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake & Snakes and Ladders</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Games Hub</h1>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="openTab('snake')">🐍 Snake Game</button>
+      <button class="tab-btn" onclick="openTab('snl')">🎲 Snakes & Ladders</button>
+    </div>
+
+    <!-- Snake Game Tab -->
+    <div id="snake" class="tab-content" style="display:block;">
+      <canvas id="gameCanvas" width="400" height="400"></canvas>
+      <p id="score">Score: 0</p>
+      <button onclick="restartSnake()">Restart Snake</button>
+    </div>
+
+    <!-- Snakes & Ladders Tab -->
+    <div id="snl" class="tab-content" style="display:none;">
+        <canvas id="boardCanvas" width="500" height="500"></canvas>
+        <div class="snl-controls">
+        <button onclick="rollDice()">Roll Dice</button>
+        <p id="diceResult">Dice: -</p>
+        <p id="timer">Time Left: 5:00</p>
+        </div>
+    </div>
+
+  </div>
+
+<script>
+// ==================== TABS ====================
+function openTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(tc => tc.style.display='none');
+    document.querySelectorAll('.tab-btn').forEach(tb => tb.classList.remove('active'));
+    document.getElementById(tabName).style.display = 'block';
+    event.currentTarget.classList.add('active');
+}
+
+// ==================== SNAKE GAME ====================
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+const box = 20;
+let snake = [{x: 9*box, y:10*box}], direction = "RIGHT";
+let food = {x: Math.floor(Math.random()*20)*box, y: Math.floor(Math.random()*20)*box};
+let score = 0;
+
+document.addEventListener("keydown", setDirection);
+
+function setDirection(event) {
+    if(event.key==="ArrowLeft" && direction!=="RIGHT") direction="LEFT";
+    else if(event.key==="ArrowUp" && direction!=="DOWN") direction="UP";
+    else if(event.key==="ArrowRight" && direction!=="LEFT") direction="RIGHT";
+    else if(event.key==="ArrowDown" && direction!=="UP") direction="DOWN";
+}
+
+function drawSnake() {
+    ctx.fillStyle = "#121212";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    snake.forEach((s, i)=>{
+        ctx.fillStyle = i===0 ? "#4CAF50" : "#81C784";
+        ctx.fillRect(s.x, s.y, box, box);
+        ctx.strokeStyle="#121212";
+        ctx.strokeRect(s.x, s.y, box, box);
+    });
+
+    ctx.fillStyle = "#FF5722";
+    ctx.fillRect(food.x, food.y, box, box);
+
+    let headX = snake[0].x, headY = snake[0].y;
+    if(direction==="LEFT") headX -= box;
+    if(direction==="UP") headY -= box;
+    if(direction==="RIGHT") headX += box;
+    if(direction==="DOWN") headY += box;
+
+    if(headX===food.x && headY===food.y){
+        score++;
+        document.getElementById("score").innerText = "Score: " + score;
+        food = {x: Math.floor(Math.random()*20)*box, y: Math.floor(Math.random()*20)*box};
+    } else {
+        snake.pop();
+    }
+
+    let newHead = {x: headX, y: headY};
+
+    if(headX<0 || headX>=canvas.width || headY<0 || headY>=canvas.height || collision(newHead,snake)){
+        clearInterval(gameSnake);
+        alert("Snake Game Over! Final Score: " + score);
+    }
+
+    snake.unshift(newHead);
+}
+
+function collision(head,array){
+    for(let i=0;i<array.length;i++){
+        if(head.x===array[i].x && head.y===array[i].y) return true;
+    }
+    return false;
+}
+
+function restartSnake(){
+    snake = [{x: 9*box, y:10*box}];
+    direction="RIGHT"; score=0;
+    document.getElementById("score").innerText="Score: 0";
+    clearInterval(gameSnake);
+    gameSnake = setInterval(drawSnake, 150);
+}
+
+let gameSnake = setInterval(drawSnake, 150);
+
+// ==================== SNAKES & LADDERS ====================
+const boardCanvas = document.getElementById("boardCanvas");
+const bctx = boardCanvas.getContext("2d");
+const boardSize = 10;
+const cellSize = 50;
+let playerPos = 1;
+let diceVal = 0;
+let gameTime = 300;
+let timerInterval;
+
+const snakes = {16:6, 48:30, 62:19, 79:23, 93:68};
+const ladders = {2:38, 7:14, 8:31, 15:26, 21:42, 28:84, 36:44, 51:67, 71:91, 78:98};
+
+function getCoordinates(pos){
+    let row = Math.floor((pos-1)/10);
+    let col = (row%2===0) ? (pos-1)%10 : 9-((pos-1)%10);
+    let x = col*cellSize;
+    let y = boardCanvas.height - (row+1)*cellSize;
+    return {x:x, y:y};
+}
+
+function drawBoard(){
+    bctx.clearRect(0,0,boardCanvas.width,boardCanvas.height);
+
+    // Draw cells & numbers
+    for(let row=0; row<boardSize; row++){
+        for(let col=0; col<boardSize; col++){
+            let x = col*cellSize, y = boardCanvas.height-(row+1)*cellSize;
+            bctx.fillStyle = (row+col)%2===0 ? "#AED6F1" : "#D6EAF8";
+            bctx.fillRect(x, y, cellSize, cellSize);
+
+            let displayNum = row*10 + ((row%2===0)? col+1 : 10-col);
+            bctx.fillStyle = "black";
+            bctx.font = "16px Arial";
+            bctx.fillText(displayNum, x+5, y+20);
+        }
+    }
+
+    // Draw ladders
+    for(let start in ladders){
+        let end = ladders[start];
+        let startCoord = getCoordinates(parseInt(start));
+        let endCoord = getCoordinates(end);
+        bctx.strokeStyle="green"; bctx.lineWidth=4;
+        bctx.beginPath();
+        bctx.moveTo(startCoord.x+cellSize/2-5,startCoord.y+cellSize/2);
+        bctx.lineTo(endCoord.x+cellSize/2-5,endCoord.y+cellSize/2);
+        bctx.stroke();
+        bctx.beginPath();
+        bctx.moveTo(startCoord.x+cellSize/2+5,startCoord.y+cellSize/2);
+        bctx.lineTo(endCoord.x+cellSize/2+5,endCoord.y+cellSize/2);
+        bctx.stroke();
+    }
+
+    // Draw snakes
+    for(let start in snakes){
+        let end = snakes[start];
+        let startCoord = getCoordinates(parseInt(start));
+        let endCoord = getCoordinates(end);
+        let cpX=(startCoord.x+endCoord.x)/2;
+        let cpY=(startCoord.y+endCoord.y)/2-30;
+
+        bctx.strokeStyle="red"; bctx.lineWidth=4;
+        bctx.beginPath();
+        bctx.moveTo(startCoord.x+cellSize/2,startCoord.y+cellSize/2);
+        bctx.quadraticCurveTo(cpX,cpY,endCoord.x+cellSize/2,endCoord.y+cellSize/2);
+        bctx.stroke();
+
+        bctx.fillStyle="darkred";
+        bctx.beginPath();
+        bctx.arc(startCoord.x+cellSize/2,startCoord.y+cellSize/2,6,0,2*Math.PI);
+        bctx.fill();
+        bctx.strokeStyle="black";
+        bctx.stroke();
+    }
+
+    // Draw player
+    let p = getCoordinates(playerPos);
+    bctx.fillStyle="red";
+    bctx.beginPath();
+    bctx.arc(p.x+cellSize/2, p.y+cellSize/2, cellSize/4, 0, 2*Math.PI);
+    bctx.fill();
+}
+
+function rollDice(){
+    diceVal = Math.floor(Math.random()*6)+1;
+    document.getElementById("diceResult").innerText="Dice: "+diceVal;
+    movePlayer(diceVal);
+}
+
+function movePlayer(steps){
+    playerPos += steps;
+    if(playerPos>100) playerPos=100;
+    if(snakes[playerPos]) playerPos=snakes[playerPos];
+    else if(ladders[playerPos]) playerPos=ladders[playerPos];
+    drawBoard();
+    if(playerPos===100){
+        clearInterval(timerInterval);
+        alert("Congratulations! You reached 100 and won!");
+    }
+}
+
+function startTimer(){
+    timerInterval = setInterval(()=>{
+        gameTime--;
+        let minutes=Math.floor(gameTime/60);
+        let seconds=gameTime%60;
+        document.getElementById("timer").innerText = `Time Left: ${minutes}:${seconds<10?"0"+seconds:seconds}`;
+        if(gameTime<=0){
+            clearInterval(timerInterval);
+            alert("Time’s up! You lost!");
+        }
+    },1000);
+}
+
+drawBoard();
+startTimer();
+</script>
+</body>
+</html>
