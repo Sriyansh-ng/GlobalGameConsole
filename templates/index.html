@@ -3,76 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎮 Multi-Game Hub</title>
+  <title>Snake, Snakes & Ladders & TicTacToe</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="container">
-    <h1>🎮 Multi-Game Hub</h1>
+  <h1 style="text-align:center; margin-top:20px;">🎮 Game Hub</h1>
 
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab-button active" onclick="openTab(event, 'snake')">🐍 Snake</button>
-      <button class="tab-button" onclick="openTab(event, 'snl')">🎲 Snakes & Ladders</button>
-      <button class="tab-button" onclick="openTab(event, 'tictactoe')">❌⭕ Tic-Tac-Toe</button>
-    </div>
-
-    <!-- Snake Game -->
-    <div id="snake" class="tab-content" style="display:block;">
-      <h2>🐍 Snake Game</h2>
-      <canvas id="gameCanvas" width="400" height="400"></canvas>
-      <p id="score">Score: 0</p>
-      <button onclick="restartGame()">Restart</button>
-    </div>
-
-    <!-- Snakes & Ladders -->
-    <div id="snl" class="tab-content">
-      <h2>🎲 Snakes & Ladders</h2>
-      <div id="board"></div>
-      <p id="snl-status">Click roll to start!</p>
-      <button id="rollDice">Roll Dice</button>
-    </div>
-
-    <!-- Tic-Tac-Toe -->
-    <div id="tictactoe" class="tab-content">
-      <h2>❌⭕ Tic-Tac-Toe</h2>
-      <div class="board">
-        <div class="cell" onclick="makeMove(0)"></div>
-        <div class="cell" onclick="makeMove(1)"></div>
-        <div class="cell" onclick="makeMove(2)"></div>
-        <div class="cell" onclick="makeMove(3)"></div>
-        <div class="cell" onclick="makeMove(4)"></div>
-        <div class="cell" onclick="makeMove(5)"></div>
-        <div class="cell" onclick="makeMove(6)"></div>
-        <div class="cell" onclick="makeMove(7)"></div>
-        <div class="cell" onclick="makeMove(8)"></div>
-      </div>
-      <p id="tictactoe-status">Player X’s turn</p>
-      <button onclick="restartTicTacToe()">Restart</button>
-    </div>
+  <!-- Tabs -->
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event,'snake')">🐍 Snake Game</button>
+    <button class="tablinks" onclick="openTab(event,'snl')">🎲 Snakes & Ladders</button>
+    <button class="tablinks" onclick="openTab(event,'tictactoe')">❌ Tic Tac Toe</button>
   </div>
 
-  <!-- Existing JS -->
+  <!-- Snake Game -->
+  <div id="snake" class="tabcontent">
+    <h2>🐍 Snake Game</h2>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <p id="score">Score: 0</p>
+    <button onclick="restartGame()">Restart</button>
+  </div>
+
+  <!-- Snakes & Ladders -->
+  <div id="snl" class="tabcontent">
+    <h2>🎲 Snakes & Ladders</h2>
+    <canvas id="snlCanvas" width="400" height="400"></canvas>
+    <p id="snl-status">Click "Roll Dice" to start!</p>
+    <button id="rollDice">Roll Dice</button>
+    <button onclick="restartSNL()">Restart</button>
+  </div>
+
+  <!-- Tic Tac Toe -->
+  <div id="tictactoe" class="tabcontent">
+    <h2>❌ Tic Tac Toe</h2>
+    <div id="ttt-board" class="ttt-board"></div>
+    <p id="ttt-status"></p>
+    <button onclick="restartTTT()">Restart</button>
+  </div>
+
+  <!-- JS -->
   <script src="{{ url_for('static', filename='snake.js') }}"></script>
   <script src="{{ url_for('static', filename='snl.js') }}"></script>
-  <!-- New Tic Tac Toe JS -->
   <script src="{{ url_for('static', filename='tictactoe.js') }}"></script>
 
   <!-- Tab Switching -->
   <script>
     function openTab(evt, tabName) {
-      let i, tabcontent, tabbuttons;
-      tabcontent = document.getElementsByClassName("tab-content");
-      for (i = 0; i < tabcontent.length; i++) {
+      const tabcontent = document.getElementsByClassName("tabcontent");
+      for (let i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
       }
-      tabbuttons = document.getElementsByClassName("tab-button");
-      for (i = 0; i < tabbuttons.length; i++) {
-        tabbuttons[i].classList.remove("active");
+
+      const tablinks = document.getElementsByClassName("tablinks");
+      for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
       }
+
       document.getElementById(tabName).style.display = "block";
-      evt.currentTarget.classList.add("active");
+      evt.currentTarget.className += " active";
     }
+
+    // Open default tab
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelector(".tablinks").click();
+    });
   </script>
 </body>
 </html>

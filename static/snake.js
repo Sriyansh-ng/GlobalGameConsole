@@ -1,5 +1,6 @@
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("gameCanvas");
+  if (!canvas) return; // don’t run if snake game tab isn’t active
   const ctx = canvas.getContext("2d");
 
   const box = 20;
@@ -21,13 +22,13 @@ window.onload = function() {
   }
 
   function draw() {
-    ctx.fillStyle = "#e9ffe9";
+    ctx.fillStyle = "#f9fff9";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < snake.length; i++) {
       ctx.fillStyle = i === 0 ? "#4CAF50" : "#81C784";
       ctx.fillRect(snake[i].x, snake[i].y, box, box);
-      ctx.strokeStyle = "#e9ffe9";
+      ctx.strokeStyle = "#ffffff";
       ctx.strokeRect(snake[i].x, snake[i].y, box, box);
     }
 
@@ -68,12 +69,7 @@ window.onload = function() {
   }
 
   function collision(head, array) {
-    for (let i = 0; i < array.length; i++) {
-      if (head.x === array[i].x && head.y === array[i].y) {
-        return true;
-      }
-    }
-    return false;
+    return array.some(segment => head.x === segment.x && head.y === segment.y);
   }
 
   function restartGame() {
@@ -82,9 +78,9 @@ window.onload = function() {
     score = 0;
     document.getElementById("score").innerText = "Score: 0";
     clearInterval(game);
-    game = setInterval(draw, 200); // slower speed
+    game = setInterval(draw, 200); // slower
   }
 
   let game = setInterval(draw, 200);
-  window.restartGame = restartGame; // expose globally for button
-};
+  window.restartGame = restartGame;
+});
