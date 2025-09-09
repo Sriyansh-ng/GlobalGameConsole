@@ -1,37 +1,42 @@
-document.addEventListener("DOMContentLoaded",()=>{
-  const boardDiv=document.getElementById("ttt-board");
-  const statusP=document.getElementById("ttt-status");
-  let board=["","","","","","","","",""];
-  let currentPlayer="X";
+const board = document.getElementById("tictactoeBoard");
+let cells = [];
+let currentPlayer = "X";
 
-  function drawBoard(){
-    boardDiv.innerHTML="";
-    board.forEach((cell,i)=>{
-      const div=document.createElement("div");
-      div.innerText=cell;
-      div.addEventListener("click",()=>makeMove(i));
-      boardDiv.appendChild(div);
-    });
+function createBoard() {
+  board.innerHTML = "";
+  cells = [];
+  for (let i = 0; i < 9; i++) {
+    const cell = document.createElement("div");
+    cell.addEventListener("click", () => makeMove(cell), { once: true });
+    board.appendChild(cell);
+    cells.push(cell);
   }
+}
 
-  function checkWinner(){
-    const lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-    for(const [a,b,c] of lines){
-      if(board[a]&&board[a]===board[b]&&board[a]===board[c]) return board[a];
-    }
-    return board.includes("")?null:"Draw";
+function makeMove(cell) {
+  cell.innerText = currentPlayer;
+  if (checkWinner()) {
+    alert(currentPlayer + " wins!");
+    restartTicTacToe();
+    return;
   }
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+}
 
-  function makeMove(i){
-    if(board[i]||checkWinner()) return;
-    board[i]=currentPlayer;
-    currentPlayer=currentPlayer==="X"?"O":"X";
-    drawBoard();
-    const winner=checkWinner();
-    if(winner) statusP.innerText=winner==="Draw"?"It's a Draw!":winner+" won!";
-  }
+function checkWinner() {
+  const winPatterns = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6]
+  ];
+  return winPatterns.some(pattern =>
+    pattern.every(index => cells[index].innerText === currentPlayer)
+  );
+}
 
-  function restartTTT(){board=["","","","","","","","",""];currentPlayer="X";statusP.innerText="";drawBoard();}
-  window.restartTTT=restartTTT;
-  drawBoard();
-});
+function restartTicTacToe() {
+  currentPlayer = "X";
+  createBoard();
+}
+
+createBoard();

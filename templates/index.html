@@ -3,70 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snake, Snakes & Ladders & TicTacToe</title>
+  <title>Mythical Studios - Game Hub</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <h1 style="text-align:center; margin-top:20px;">🎮 Game Hub</h1>
+  <header>
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Mythical Studios Logo" class="logo">
+    <h1>Mythical Studios - Game Hub</h1>
+  </header>
 
-  <!-- Tabs -->
-  <div class="tab">
-    <button class="tablinks" onclick="openTab(event,'snake')">🐍 Snake Game</button>
-    <button class="tablinks" onclick="openTab(event,'snl')">🎲 Snakes & Ladders</button>
-    <button class="tablinks" onclick="openTab(event,'tictactoe')">❌ Tic Tac Toe</button>
-  </div>
+  <nav class="tabs">
+    <button class="tablink" onclick="openTab('snake')">Snake Game</button>
+    <button class="tablink" onclick="openTab('snl')">Snakes & Ladders</button>
+    <button class="tablink" onclick="openTab('tictactoe')">Tic Tac Toe</button>
+    <button class="tablink" onclick="openTab('about')">About Us</button>
+  </nav>
 
-  <!-- Snake Game -->
-  <div id="snake" class="tabcontent">
-    <h2>🐍 Snake Game</h2>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
-    <p id="score">Score: 0</p>
-    <button onclick="restartGame()">Restart</button>
-  </div>
+  <main>
+    <!-- Snake Game -->
+    <section id="snake" class="tabcontent">
+      <h2>Snake Game</h2>
+      <canvas id="snakeCanvas" width="400" height="400"></canvas>
+      <p id="snakeScore">Score: 0</p>
+      <button onclick="restartSnake()">Restart</button>
+    </section>
 
-  <!-- Snakes & Ladders -->
-  <div id="snl" class="tabcontent">
-    <h2>🎲 Snakes & Ladders</h2>
-    <canvas id="snlCanvas" width="400" height="400"></canvas>
-    <p id="snl-status">Click "Roll Dice" to start!</p>
-    <button id="rollDice">Roll Dice</button>
-    <button onclick="restartSNL()">Restart</button>
-  </div>
+    <!-- Snakes & Ladders -->
+    <section id="snl" class="tabcontent">
+      <h2>Snakes & Ladders</h2>
+      <canvas id="snlCanvas" width="400" height="400"></canvas>
+      <button id="rollDiceBtn">Roll Dice</button>
+      <p id="diceResult">Roll to start the game!</p>
+    </section>
 
-  <!-- Tic Tac Toe -->
-  <div id="tictactoe" class="tabcontent">
-    <h2>❌ Tic Tac Toe</h2>
-    <div id="ttt-board" class="ttt-board"></div>
-    <p id="ttt-status"></p>
-    <button onclick="restartTTT()">Restart</button>
-  </div>
+    <!-- Tic Tac Toe -->
+    <section id="tictactoe" class="tabcontent">
+      <h2>Tic Tac Toe</h2>
+      <div id="tictactoeBoard" class="board"></div>
+      <button onclick="restartTicTacToe()">Restart</button>
+    </section>
 
-  <!-- JS -->
+    <!-- About Us -->
+    <section id="about" class="tabcontent">
+      <h2>About Us</h2>
+      <p>
+        This is <strong>Mythical Studios</strong>, a website meant for game lovers as well as trivia lovers of any sort!
+        We develop games and quizzes on a wide variety of subjects.
+      </p>
+    </section>
+  </main>
+
   <script src="{{ url_for('static', filename='snake.js') }}"></script>
   <script src="{{ url_for('static', filename='snl.js') }}"></script>
   <script src="{{ url_for('static', filename='tictactoe.js') }}"></script>
 
-  <!-- Tab Switching -->
   <script>
-    function openTab(evt, tabName) {
-      const tabcontent = document.getElementsByClassName("tabcontent");
-      for (let i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-
-      const tablinks = document.getElementsByClassName("tablinks");
-      for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
+    function openTab(tabName) {
+      const tabs = document.querySelectorAll('.tabcontent');
+      tabs.forEach(tab => tab.style.display = "none");
 
       document.getElementById(tabName).style.display = "block";
-      evt.currentTarget.className += " active";
     }
-
-    // Open default tab
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelector(".tablinks").click();
-    });
+    // Show Snake Game by default
+    openTab('snake');
   </script>
 </body>
 </html>
