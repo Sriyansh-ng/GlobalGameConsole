@@ -20,13 +20,23 @@
   </nav>
 
   <main>
-    <!-- Snake Game -->
+   <!-- Snake Game -->
     <section id="snake" class="tabcontent">
       <h2>Snake Game</h2>
       <canvas id="snakeCanvas" width="400" height="400"></canvas>
       <p id="snakeScore">Score: 0</p>
-      <button onclick="restartSnake()">Restart</button>
+
+      <div class="snake-controls">
+        <button onclick="restartSnake()">Restart</button>
+        <div class="arrow-buttons-inline">
+          <button onclick="setDirectionFromButton('LEFT')">←</button>
+          <button onclick="setDirectionFromButton('UP')">↑</button>
+          <button onclick="setDirectionFromButton('DOWN')">↓</button>
+          <button onclick="setDirectionFromButton('RIGHT')">→</button>
+        </div>
+      </div>
     </section>
+
 
     <!-- Snakes & Ladders -->
     <section id="snl" class="tabcontent">

@@ -17,6 +17,14 @@ function setDirection(event) {
   else if (event.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
 }
 
+// Handle mobile direction buttons
+function setDirectionButton(dir) {
+  if (dir === "LEFT" && direction !== "RIGHT") direction = "LEFT";
+  else if (dir === "UP" && direction !== "DOWN") direction = "UP";
+  else if (dir === "RIGHT" && direction !== "LEFT") direction = "RIGHT";
+  else if (dir === "DOWN" && direction !== "UP") direction = "DOWN";
+}
+
 function randomFood() {
   return {
     x: Math.floor(Math.random() * 19 + 1) * box,
@@ -89,3 +97,10 @@ function restartSnake() {
 }
 
 restartSnake();
+
+function setDirectionFromButton(dir) {
+  if (dir === "LEFT" && direction !== "RIGHT") direction = "LEFT";
+  if (dir === "UP" && direction !== "DOWN") direction = "UP";
+  if (dir === "RIGHT" && direction !== "LEFT") direction = "RIGHT";
+  if (dir === "DOWN" && direction !== "UP") direction = "DOWN";
+}

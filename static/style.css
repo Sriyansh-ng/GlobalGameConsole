@@ -91,3 +91,25 @@ button:hover {
   cursor: pointer;
   border-radius: 8px;
 }
+
+/* Snake controls in one line */
+.snake-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.arrow-buttons-inline button {
+  padding: 5px 10px;
+  font-size: 14px;
+  margin: 0 3px;
+  background: #4CAF50;
+  border-radius: 6px;
+}
+
+.arrow-buttons-inline button:hover {
+  background: #45a049;
+}
+
