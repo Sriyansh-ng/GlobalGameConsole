@@ -1,42 +1,56 @@
-const board = document.getElementById("tictactoeBoard");
-let cells = [];
-let currentPlayer = "X";
+const boardElement = document.getElementById("tictactoeBoard");
+let board, currentPlayer, gameActive;
 
-function createBoard() {
-  board.innerHTML = "";
-  cells = [];
-  for (let i = 0; i < 9; i++) {
+function startTicTacToe() {
+  board = ["", "", "", "", "", "", "", "", ""];
+  currentPlayer = "X";
+  gameActive = true;
+  boardElement.innerHTML = "";
+  document.getElementById("tictactoeResult").innerText = ""; // clear old result
+
+  board.forEach((_, index) => {
     const cell = document.createElement("div");
-    cell.addEventListener("click", () => makeMove(cell), { once: true });
-    board.appendChild(cell);
-    cells.push(cell);
-  }
+    cell.addEventListener("click", () => makeMove(index));
+    boardElement.appendChild(cell);
+  });
 }
 
-function makeMove(cell) {
-  cell.innerText = currentPlayer;
+function makeMove(index) {
+  if (!gameActive || board[index] !== "") return;
+
+  board[index] = currentPlayer;
+  boardElement.children[index].innerText = currentPlayer;
+
   if (checkWinner()) {
-    alert(currentPlayer + " wins!");
-    restartTicTacToe();
+    document.getElementById("tictactoeResult").innerText = `${currentPlayer} wins! 🎉`;
+    gameActive = false;
     return;
   }
+
+  if (!board.includes("")) {
+    document.getElementById("tictactoeResult").innerText = "It's a draw!";
+    gameActive = false;
+    return;
+  }
+
   currentPlayer = currentPlayer === "X" ? "O" : "X";
 }
 
 function checkWinner() {
-  const winPatterns = [
+  const winningCombos = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
     [0, 4, 8], [2, 4, 6]
   ];
-  return winPatterns.some(pattern =>
-    pattern.every(index => cells[index].innerText === currentPlayer)
+  return winningCombos.some(combo =>
+    board[combo[0]] &&
+    board[combo[0]] === board[combo[1]] &&
+    board[combo[0]] === board[combo[2]]
   );
 }
 
 function restartTicTacToe() {
-  currentPlayer = "X";
-  createBoard();
+  startTicTacToe();
 }
 
-createBoard();
+startTicTacToe();

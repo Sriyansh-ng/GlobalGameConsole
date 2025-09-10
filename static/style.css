@@ -123,3 +123,9 @@ button:hover {
   background: #45a049;
 }
 
+#tictactoeResult {
+  font-size: 20px;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #FFD700; /* golden win message */
+}
