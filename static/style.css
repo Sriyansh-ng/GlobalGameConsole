@@ -21,7 +21,17 @@ header {
 }
 
 h1 {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 36px;
+  line-height: 1.2;
+}
+
+h1 .subtitle {
+  display: block;
   font-size: 28px;
+  font-weight: 400;
+  margin-top: 5px;
+  color: #FFD700; /* gold accent for Game Hub */
 }
 
 .tabs {
