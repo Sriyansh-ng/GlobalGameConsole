@@ -129,3 +129,28 @@ button:hover {
   font-weight: bold;
   color: #FFD700; /* golden win message */
 }
+
+/* ===== Moto X3M Styling ===== */
+#moto {
+  width: 90%;
+  max-width: 700px;
+}
+
+#motoCanvas {
+  width: 100%;
+  height: auto;
+  max-height: 350px;
+  border: 3px solid #FFD700; /* golden border for moto game */
+  background: #222;
+  border-radius: 12px;
+}
+
+#motoControls {
+  font-size: 14px;
+  margin-top: 8px;
+  color: #FFD700; /* gold accent for controls */
+}
+
+#moto button {
+  margin-top: 10px;
+}

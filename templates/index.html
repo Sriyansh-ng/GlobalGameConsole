@@ -21,11 +21,12 @@
     <button class="tablink" onclick="openTab('snake')">Snake Game</button>
     <button class="tablink" onclick="openTab('snl')">Snakes & Ladders</button>
     <button class="tablink" onclick="openTab('tictactoe')">Tic Tac Toe</button>
+    <button class="tablink" onclick="openTab('moto')">Moto X3M</button>
     <button class="tablink" onclick="openTab('about')">About Us</button>
   </nav>
 
   <main>
-   <!-- Snake Game -->
+    <!-- Snake Game -->
     <section id="snake" class="tabcontent">
       <h2>Snake Game</h2>
       <canvas id="snakeCanvas" width="400" height="400"></canvas>
@@ -42,7 +43,6 @@
       </div>
     </section>
 
-
     <!-- Snakes & Ladders -->
     <section id="snl" class="tabcontent">
       <h2>Snakes & Ladders</h2>
@@ -52,7 +52,6 @@
     </section>
 
     <!-- Tic Tac Toe -->
-    <!-- Tic Tac Toe -->
     <section id="tictactoe" class="tabcontent">
       <h2>Tic Tac Toe</h2>
       <div id="tictactoeBoard" class="board"></div>
@@ -60,6 +59,13 @@
       <button onclick="restartTicTacToe()">Restart</button>
     </section>
 
+    <!-- Moto X3M -->
+    <section id="moto" class="tabcontent">
+      <h2>Moto X3M (Simplified)</h2>
+      <canvas id="motoCanvas" width="600" height="300"></canvas>
+      <p id="motoControls">Controls: ↑ accelerate | ↓ brake | ← tilt back | → tilt forward</p>
+      <button onclick="restartMoto()">Restart</button>
+    </section>
 
     <!-- About Us -->
     <section id="about" class="tabcontent">
@@ -67,14 +73,16 @@
       <p>
         <strong>Mythical Studios</strong> - a website meant for game lovers!
         We develop games for all age groups that are easy and fun to play with.
-          Contact us at mythicalStudios12@gmail.com to provide us with suggestions and feedback.
+        Contact us at mythicalStudios12@gmail.com to provide us with suggestions and feedback.
       </p>
     </section>
   </main>
 
+  <!-- JS files -->
   <script src="{{ url_for('static', filename='snake.js') }}"></script>
   <script src="{{ url_for('static', filename='snl.js') }}"></script>
   <script src="{{ url_for('static', filename='tictactoe.js') }}"></script>
+  <script src="{{ url_for('static', filename='moto.js') }}"></script>
 
   <script>
     function openTab(tabName) {
