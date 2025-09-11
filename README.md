@@ -1,6 +1,4 @@
-Of course. Here is a README for your project, tailored for an 8th-grade audience. It uses simple language and a clear structure to explain what the project is, how it works, and how someone can get it running.
 
------
 
 # Game Hub
 
