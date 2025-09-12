@@ -12,59 +12,160 @@
   <header>
     <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Mythical Studios Logo" class="logo">
     <h1>
-      Mythical Studios <br>
-      <span class="subtitle">Game Hub</span>
+      Mythical Studios
     </h1>
   </header>
 
   <nav class="tabs">
-    <button class="tablink" onclick="openTab('snake')">Snake Game</button>
-    <button class="tablink" onclick="openTab('snl')">Snakes & Ladders</button>
-    <button class="tablink" onclick="openTab('tictactoe')">Tic Tac Toe</button>
-    <button class="tablink" onclick="openTab('moto')">Moto X3M</button>
+    <button class="tablink gold" onclick="openTab('gamehub')">Game Hub</button>
+    <button class="tablink gold" onclick="openTab('quizhub')">Quiz Hub</button>
     <button class="tablink" onclick="openTab('about')">About Us</button>
   </nav>
 
   <main>
-    <!-- Snake Game -->
-    <section id="snake" class="tabcontent">
-      <h2>Snake Game</h2>
-      <canvas id="snakeCanvas" width="400" height="400"></canvas>
-      <p id="snakeScore">Score: 0</p>
+    <!-- Game Hub with inner tabs -->
+    <section id="gamehub" class="tabcontent">
+      <nav class="inner-tabs">
+        <button class="tablink gold" onclick="openInnerTab('snake')">Snake Game</button>
+        <button class="tablink gold" onclick="openInnerTab('snl')">Snakes & Ladders</button>
+        <button class="tablink gold" onclick="openInnerTab('tictactoe')">Tic Tac Toe</button>
+        <button class="tablink gold" onclick="openInnerTab('moto')">Moto X3M</button>
+      </nav>
 
-      <div class="snake-controls">
-        <button onclick="restartSnake()">Restart</button>
-        <div class="arrow-buttons-inline">
-          <button onclick="setDirectionFromButton('LEFT')">←</button>
-          <button onclick="setDirectionFromButton('UP')">↑</button>
-          <button onclick="setDirectionFromButton('DOWN')">↓</button>
-          <button onclick="setDirectionFromButton('RIGHT')">→</button>
+      <!-- Snake Game -->
+      <section id="snake" class="inner-tabcontent">
+        <h2>Snake Game</h2>
+        <canvas id="snakeCanvas" width="400" height="400"></canvas>
+        <p id="snakeScore">Score: 0</p>
+
+        <div class="snake-controls">
+          <button onclick="restartSnake()">Restart</button>
+          <div class="arrow-buttons-inline">
+            <button onclick="setDirectionFromButton('LEFT')">←</button>
+            <button onclick="setDirectionFromButton('UP')">↑</button>
+            <button onclick="setDirectionFromButton('DOWN')">↓</button>
+            <button onclick="setDirectionFromButton('RIGHT')">→</button>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <!-- Snakes & Ladders -->
+      <section id="snl" class="inner-tabcontent">
+        <h2>Snakes & Ladders</h2>
+        <canvas id="snlCanvas" width="400" height="400"></canvas>
+        <button id="rollDiceBtn">Roll Dice</button>
+        <p id="diceResult">Roll to start the game!</p>
+      </section>
+
+      <!-- Tic Tac Toe -->
+      <section id="tictactoe" class="inner-tabcontent">
+        <h2>Tic Tac Toe</h2>
+        <div id="tictactoeBoard" class="board"></div>
+        <p id="tictactoeResult"></p>
+        <button onclick="restartTicTacToe()">Restart</button>
+      </section>
+
+      <!-- Moto X3M -->
+      <section id="moto" class="inner-tabcontent">
+        <h2>Moto X3M (Simplified)</h2>
+        <canvas id="motoCanvas" width="600" height="300"></canvas>
+        <p id="motoControls">Controls: ↑ accelerate | ↓ brake | ← tilt back | → tilt forward</p>
+        <button onclick="restartMoto()">Restart</button>
+      </section>
     </section>
 
-    <!-- Snakes & Ladders -->
-    <section id="snl" class="tabcontent">
-      <h2>Snakes & Ladders</h2>
-      <canvas id="snlCanvas" width="400" height="400"></canvas>
-      <button id="rollDiceBtn">Roll Dice</button>
-      <p id="diceResult">Roll to start the game!</p>
-    </section>
+    <!-- Quiz Hub with inner tabs -->
+    <section id="quizhub" class="tabcontent">
+      <nav class="inner-tabs">
+        <button class="tablink gold" onclick="openInnerTab('quizGeneral')">General Quiz</button>
+        <button class="tablink gold" onclick="openInnerTab('quizScience')">Science Quiz</button>
+        <button class="tablink gold" onclick="openInnerTab('quizHistory')">History Quiz</button>
+      </nav>
 
-    <!-- Tic Tac Toe -->
-    <section id="tictactoe" class="tabcontent">
-      <h2>Tic Tac Toe</h2>
-      <div id="tictactoeBoard" class="board"></div>
-      <p id="tictactoeResult"></p>
-      <button onclick="restartTicTacToe()">Restart</button>
-    </section>
+      <section id="quizGeneral" class="inner-tabcontent">
+        <h2>General Quiz</h2>
 
-    <!-- Moto X3M -->
-    <section id="moto" class="tabcontent">
-      <h2>Moto X3M (Simplified)</h2>
-      <canvas id="motoCanvas" width="600" height="300"></canvas>
-      <p id="motoControls">Controls: ↑ accelerate | ↓ brake | ← tilt back | → tilt forward</p>
-      <button onclick="restartMoto()">Restart</button>
+        <div id="quizSetup" class="quiz-setup">
+          <p>Select a grade level to begin:</p>
+          <select id="gradeSelect" class="quiz-select">
+            <option value="" selected disabled>Choose grade</option>
+            <option value="grade1">Grade 1</option>
+            <option value="grade2">Grade 2</option>
+            <option value="grade3">Grade 3</option>
+          </select>
+          <button id="startQuizBtn" class="btn-gold">Start Quiz</button>
+        </div>
+
+        <div id="quizContainer" class="quiz-container" style="display:none;">
+          <div class="quiz-card">
+            <div class="quiz-header">
+              <span id="quizProgress">Question 1 of 5</span>
+            </div>
+            <h3 id="quizQuestion">Question text</h3>
+            <div id="quizOptions" class="quiz-options">
+              <!-- Options injected by JS -->
+            </div>
+            <div class="quiz-actions">
+              <button id="quizSubmitBtn" class="btn-gold" disabled>Submit</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="quizResult" class="quiz-result" style="display:none;">
+          <h3>Round Complete!</h3>
+          <p id="quizScore">You scored 0 out of 5.</p>
+          <div id="quizReview" class="quiz-review" style="display:none;"></div>
+          <div class="quiz-actions">
+            <button id="quizPlayAgain" class="btn-gold">Play Again</button>
+            <button id="quizChangeGrade" class="btn-outline">Change Grade</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="quizScience" class="inner-tabcontent">
+        <h2>Science Quiz</h2>
+
+        <div id="scienceQuizSetup" class="quiz-setup">
+          <p>Select a grade level to begin:</p>
+          <select id="scienceGradeSelect" class="quiz-select">
+            <option value="" selected disabled>Choose grade</option>
+            <option value="grade1">Grade 1</option>
+            <option value="grade2">Grade 2</option>
+            <option value="grade3">Grade 3</option>
+          </select>
+          <button id="scienceStartQuizBtn" class="btn-gold">Start Quiz</button>
+        </div>
+
+        <div id="scienceQuizContainer" class="quiz-container" style="display:none;">
+          <div class="quiz-card">
+            <div class="quiz-header">
+              <span id="scienceQuizProgress">Question 1 of 5</span>
+            </div>
+            <h3 id="scienceQuizQuestion">Question text</h3>
+            <div id="scienceQuizOptions" class="quiz-options">
+              <!-- Options injected by JS -->
+            </div>
+            <div class="quiz-actions">
+              <button id="scienceQuizSubmitBtn" class="btn-gold" disabled>Submit</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="scienceQuizResult" class="quiz-result" style="display:none;">
+          <h3>Round Complete!</h3>
+          <p id="scienceQuizScore">You scored 0 out of 5.</p>
+          <div id="scienceQuizReview" class="quiz-review" style="display:none;"></div>
+          <div class="quiz-actions">
+            <button id="scienceQuizPlayAgain" class="btn-gold">Play Again</button>
+            <button id="scienceQuizChangeGrade" class="btn-outline">Change Grade</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="quizHistory" class="inner-tabcontent">
+        <h2>History Quiz</h2>
+        <p>Coming soon.</p>
+      </section>
     </section>
 
     <!-- About Us -->
@@ -83,16 +184,38 @@
   <script src="{{ url_for('static', filename='snl.js') }}"></script>
   <script src="{{ url_for('static', filename='tictactoe.js') }}"></script>
   <script src="{{ url_for('static', filename='moto.js') }}"></script>
+  <script src="{{ url_for('static', filename='quiz.js') }}"></script>
+  <script src="{{ url_for('static', filename='science_quiz.js') }}"></script>
 
   <script>
     function openTab(tabName) {
       const tabs = document.querySelectorAll('.tabcontent');
       tabs.forEach(tab => tab.style.display = "none");
-
-      document.getElementById(tabName).style.display = "block";
+      const target = document.getElementById(tabName);
+      if (target) {
+        target.style.display = "block";
+        // If the opened tab has inner tabs, auto-open the first one if none is visible
+        const innerTabs = target.querySelectorAll('.inner-tabcontent');
+        if (innerTabs.length > 0) {
+          const anyVisible = Array.from(innerTabs).some(el => el.style.display === 'block');
+          if (!anyVisible) {
+            innerTabs.forEach(el => el.style.display = 'none');
+            innerTabs[0].style.display = 'block';
+          }
+        }
+      }
     }
-    // Show Snake Game by default
-    openTab('snake');
+
+    function openInnerTab(tabName) {
+      const innerTabs = document.querySelectorAll('.inner-tabcontent');
+      innerTabs.forEach(tab => tab.style.display = "none");
+      const target = document.getElementById(tabName);
+      if (target) target.style.display = "block";
+    }
+
+    // Show Game Hub and default inner tab
+    openTab('gamehub');
+    openInnerTab('snake');
   </script>
 </body>
 </html>

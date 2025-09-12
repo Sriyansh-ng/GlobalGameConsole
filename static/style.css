@@ -154,3 +154,337 @@ button:hover {
 #moto button {
   margin-top: 10px;
 }
+/* ===== Game Hub & Inner Tabs ===== */
+/* Strong golden override for Game Hub and inner tab buttons */
+.tablink.gold, .gold.tablink, .inner-tabs .tablink.gold {
+  background: #4CAF50 !important;
+  color: #ffffff !important;
+}
+
+.tablink.gold:hover, .gold.tablink:hover, .inner-tabs .tablink.gold:hover {
+  background: #45a049 !important;
+  color: #ffffff !important;
+}
+
+/* Inner tabs container */
+.inner-tabs {
+  margin: 10px 0 20px;
+}
+
+/* Inner tab contents sizing to match existing cards */
+.inner-tabcontent {
+  display: none;
+  margin: 20px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  width: 420px;
+}
+
+/* ===== Quiz Styles ===== */
+.quiz-setup {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.quiz-select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  color: #000 !important;
+  min-width: 200px;
+}
+.quiz-select option {
+  color: #000;
+}
+
+.btn-gold {
+  background: #FFD700;
+  color: #111;
+  border: none;
+}
+
+.btn-gold:hover {
+  background: #e6c200;
+  color: #111;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #FFD700;
+  border: 2px solid #FFD700;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 215, 0, 0.15);
+}
+
+.quiz-container {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.quiz-card {
+  padding: 18px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+  color: #FFD700;
+  margin-bottom: 8px;
+}
+
+.quiz-options {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0 8px;
+  text-align: left;
+}
+
+.quiz-option {
+  display: block;
+}
+
+.quiz-option input {
+  display: none;
+}
+
+.quiz-option span {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quiz-option span:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 215, 0, 0.4);
+}
+
+.quiz-option input:checked + span {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: #FFD700;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.15) inset;
+}
+
+.quiz-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.quiz-result {
+  margin: 20px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 12px;
+  max-width: 420px;
+}
+
+/* Quiz review styling */
+.quiz-review {
+  text-align: left;
+  margin-top: 12px;
+}
+
+.quiz-review h4 {
+  color: #FFD700;
+  margin: 6px 0 8px;
+}
+
+.wrong-item {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 8px 0;
+}
+
+.wrong-item .q {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.wrong-item .a {
+  font-size: 14px;
+  margin: 2px 0;
+}
+
+.wrong-item .a .label {
+  color: #bbb;
+  margin-right: 6px;
+}
+
+.correct-answer {
+  color: #4CAF50;
+}
+
+.your-answer {
+  color: #ff6b6b;
+}
+
+/* ===== Quiz Styles ===== */
+.quiz-setup {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.quiz-select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  min-width: 200px;
+}
+
+.btn-gold {
+  background: #FFD700;
+  color: #111;
+  border: none;
+}
+
+.btn-gold:hover {
+  background: #e6c200;
+  color: #111;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #FFD700;
+  border: 2px solid #FFD700;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 215, 0, 0.15);
+}
+
+.quiz-container {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.quiz-card {
+  padding: 18px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+  color: #FFD700;
+  margin-bottom: 8px;
+}
+
+.quiz-options {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0 8px;
+  text-align: left;
+}
+
+.quiz-option {
+  display: block;
+}
+
+.quiz-option input {
+  display: none;
+}
+
+.quiz-option span {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quiz-option span:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 215, 0, 0.4);
+}
+
+.quiz-option input:checked + span {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: #FFD700;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.15) inset;
+}
+
+.quiz-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.quiz-result {
+  margin: 20px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 12px;
+  max-width: 420px;
+}
+
+/* Quiz review styling */
+.quiz-review {
+  text-align: left;
+  margin-top: 12px;
+}
+
+.quiz-review h4 {
+  color: #FFD700;
+  margin: 6px 0 8px;
+}
+
+.wrong-item {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 8px 0;
+}
+
+.wrong-item .q {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.wrong-item .a {
+  font-size: 14px;
+  margin: 2px 0;
+}
+
+.wrong-item .a .label {
+  color: #bbb;
+  margin-right: 6px;
+}
+
+.correct-answer {
+  color: #4CAF50;
+}
+
+.your-answer {
+  color: #ff6b6b;
+}
+
