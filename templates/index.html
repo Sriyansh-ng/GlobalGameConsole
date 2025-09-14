@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <!-- Add Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+  <!-- Modern UI font and theme overrides -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
 </head>
 <body>
   <header>
@@ -17,9 +20,9 @@
   </header>
 
   <nav class="tabs">
-    <button class="tablink gold" onclick="openTab('gamehub')">Game Hub</button>
-    <button class="tablink gold" onclick="openTab('quizhub')">Quiz Hub</button>
-    <button class="tablink" onclick="openTab('about')">About Us</button>
+    <button class="tablink gold" onclick="openTab('gamehub')"><span class="icon">🎮</span>Game Hub</button>
+    <button class="tablink gold" onclick="openTab('quizhub')"><span class="icon">❓</span>Quiz Hub</button>
+    <button class="tablink" onclick="openTab('about')"><span class="icon">ℹ️</span>About Us</button>
   </nav>
 
   <main>

@@ -58,7 +58,9 @@ h1 .subtitle {
   padding: 20px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
-  width: 420px;
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
 }
 
 canvas {
@@ -178,7 +180,9 @@ button:hover {
   padding: 20px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
-  width: 420px;
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
 }
 
 /* ===== Quiz Styles ===== */
@@ -334,6 +338,13 @@ button:hover {
 
 .your-answer {
   color: #ff6b6b;
+}
+
+/* Game Hub layout fix: wider frame for game boards */
+#gamehub .inner-tabcontent {
+  width: 90%;
+  max-width: 700px;
+  box-sizing: border-box;
 }
 
 /* ===== Quiz Styles ===== */
