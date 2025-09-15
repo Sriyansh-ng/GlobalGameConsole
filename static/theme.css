@@ -210,6 +210,80 @@ canvas {
   border-color: var(--prem-accent-2) !important;
 }
 
+/* ===== Responsive Enhancements ===== */
+
+/* Make Snake and Snakes & Ladders canvases fluid and centered */
+#snakeCanvas,
+#snlCanvas {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 20px auto;
+}
+
+/* Ensure any game canvas in Game Hub scales within its frame */
+#gamehub canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Tic Tac Toe board scales with screen size */
+.board {
+  --cell-size: clamp(70px, 22vw, 100px);
+  grid-template-columns: repeat(3, var(--cell-size));
+  grid-template-rows: repeat(3, var(--cell-size));
+}
+
+/* Make top and inner tab bars wrap nicely on small screens */
+.tabs,
+.inner-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.tabs .tablink,
+.inner-tabs .tablink {
+  flex: 1 1 160px;
+  min-width: 140px;
+}
+
+/* Medium screens: widen game hub content smoothly */
+@media (max-width: 768px) {
+  #gamehub .inner-tabcontent {
+    max-width: 95vw;
+  }
+}
+
+/* Small phones: tighten header and type, ensure full-width containers */
+@media (max-width: 480px) {
+  header {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  .logo {
+    width: 52px;
+    height: 52px;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  .tabcontent,
+  .inner-tabcontent {
+    width: 100%;
+    max-width: 95vw !important;
+    padding: 18px !important;
+  }
+  .quiz-container {
+    max-width: 95vw;
+  }
+}
+
 /* Center Snake and Snakes & Ladders canvases */
 #snakeCanvas,
 #snlCanvas {
