@@ -71,7 +71,13 @@ function drawLine(start, end) {
   snlCtx.stroke();
 }
 
-document.getElementById("rollDiceBtn").addEventListener("click", () => {
+const rollBtn = document.getElementById("rollDiceBtn");
+const restartBtn = document.getElementById("snlRestartBtn");
+let gameOver = false;
+
+rollBtn.addEventListener("click", () => {
+  if (gameOver) return;
+
   let roll = Math.floor(Math.random() * 6) + 1;
   diceResult.innerText = `You rolled: ${roll}`;
 
@@ -83,10 +89,24 @@ document.getElementById("rollDiceBtn").addEventListener("click", () => {
   }
 
   if (playerPos >= 100) {
-    diceResult.innerText = "🎉 You win!";
+    diceResult.innerText = "🎉 You win! Tap Restart to play again.";
     playerPos = 100;
+    gameOver = true;
+    if (rollBtn) rollBtn.disabled = true;
   }
   drawBoard();
 });
+
+function restartSnL() {
+  playerPos = 1;
+  gameOver = false;
+  if (rollBtn) rollBtn.disabled = false;
+  diceResult.innerText = "Roll to start the game!";
+  drawBoard();
+}
+
+if (restartBtn) {
+  restartBtn.addEventListener("click", restartSnL);
+}
 
 drawBoard();

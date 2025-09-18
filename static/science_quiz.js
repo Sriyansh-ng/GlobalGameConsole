@@ -11,11 +11,19 @@
     return arr;
   }
   function buildOptionsFrom(correct, distractors) {
-    const pool = distractors.filter(d => d !== correct);
-    shuffle(pool);
-    const chosen = pool.slice(0, 3);
-    const options = shuffle([correct, ...chosen]);
-    return { options, correctIndex: options.indexOf(correct) };
+    const norm = (v) => String(v).trim();
+    const c = norm(correct);
+    const uniquePool = Array.from(new Set(distractors.map(norm))).filter(d => d !== c && d.length > 0);
+    const generic = ["None of these", "Not applicable", "Unknown", "N/A", "Other"];
+    while (uniquePool.length < 3) {
+      const g = generic.find(x => !uniquePool.includes(x) && x !== c);
+      if (!g) break;
+      uniquePool.push(g);
+    }
+    shuffle(uniquePool);
+    const chosen = uniquePool.slice(0, 3);
+    const options = shuffle([c, ...chosen]);
+    return { options, correctIndex: options.indexOf(c) };
   }
   function pickFromPool(item) {
     const { options, correctIndex } = buildOptionsFrom(item.correct, item.d);
@@ -276,7 +284,17 @@
 
   function pickQuestions(gradeKey) {
     const bank = questionBank[gradeKey] || [];
-    return shuffle([...bank]).slice(0, 5);
+    const pool = shuffle([...bank]);
+    const seen = new Set();
+    const out = [];
+    for (const item of pool) {
+      if (!seen.has(item.q)) {
+        seen.add(item.q);
+        out.push(item);
+        if (out.length === 5) break;
+      }
+    }
+    return out;
   }
 
   function renderQuestion() {

@@ -22,6 +22,7 @@
   <nav class="tabs">
     <button class="tablink gold" onclick="openTab('gamehub')"><span class="icon">🎮</span>Game Hub</button>
     <button class="tablink gold" onclick="openTab('quizhub')"><span class="icon">❓</span>Quiz Hub</button>
+    <button class="tablink gold" onclick="openTab('utilityhub')"><span class="icon">🧰</span>Utility Hub</button>
     <button class="tablink" onclick="openTab('about')"><span class="icon">ℹ️</span>About Us</button>
   </nav>
 
@@ -57,6 +58,8 @@
         <h2>Snakes & Ladders</h2>
         <canvas id="snlCanvas" width="400" height="400"></canvas>
         <button id="rollDiceBtn">Roll Dice</button>
+        <button id="snlRestartBtn">Restart</button>
+        <button id="snlRestartBtn">Restart</button>
         <p id="diceResult">Roll to start the game!</p>
       </section>
 
@@ -167,7 +170,69 @@
 
       <section id="quizHistory" class="inner-tabcontent">
         <h2>History Quiz</h2>
-        <p>Coming soon.</p>
+
+        <div id="historyQuizSetup" class="quiz-setup">
+          <p>Select a grade level to begin:</p>
+          <select id="historyGradeSelect" class="quiz-select">
+            <option value="" selected disabled>Choose grade</option>
+            <option value="grade1">Grade 1</option>
+            <option value="grade2">Grade 2</option>
+            <option value="grade3">Grade 3</option>
+          </select>
+          <button id="historyStartQuizBtn" class="btn-gold">Start Quiz</button>
+        </div>
+
+        <div id="historyQuizContainer" class="quiz-container" style="display:none;">
+          <div class="quiz-card">
+            <div class="quiz-header">
+              <span id="historyQuizProgress">Question 1 of 5</span>
+            </div>
+            <h3 id="historyQuizQuestion">Question text</h3>
+            <div id="historyQuizOptions" class="quiz-options">
+              <!-- Options injected by JS -->
+            </div>
+            <div class="quiz-actions">
+              <button id="historyQuizSubmitBtn" class="btn-gold" disabled>Submit</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="historyQuizResult" class="quiz-result" style="display:none;">
+          <h3>Round Complete!</h3>
+          <p id="historyQuizScore">You scored 0 out of 5.</p>
+          <div id="historyQuizReview" class="quiz-review" style="display:none;"></div>
+          <div class="quiz-actions">
+            <button id="historyQuizPlayAgain" class="btn-gold">Play Again</button>
+            <button id="historyQuizChangeGrade" class="btn-outline">Change Grade</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Utility Hub with inner tabs -->
+    <section id="utilityhub" class="tabcontent">
+      <nav class="inner-tabs">
+        <button class="tablink gold" onclick="openInnerTab('qrgen')">QR Code Generator</button>
+      </nav>
+
+      <section id="qrgen" class="inner-tabcontent">
+        <h2>QR Code Generator</h2>
+        <div class="qr-form">
+          <input id="qrData" type="text" placeholder="Enter text or URL" class="qr-input" />
+          <select id="qrSize" class="quiz-select">
+            <option value="200">200 x 200</option>
+            <option value="256" selected>256 x 256</option>
+            <option value="300">300 x 300</option>
+            <option value="350">350 x 350</option>
+          </select>
+          <div class="quiz-actions">
+            <button id="qrGenerateBtn" class="btn-gold">Generate</button>
+            <a id="qrDownloadBtn" class="btn-outline" href="#" download="qr.png">Download</a>
+          </div>
+        </div>
+        <div id="qrOutput" class="qr-output" style="display:none;">
+          <img id="qrImage" alt="Generated QR code">
+        </div>
       </section>
     </section>
 
@@ -189,6 +254,8 @@
   <script src="{{ url_for('static', filename='moto.js') }}"></script>
   <script src="{{ url_for('static', filename='quiz.js') }}"></script>
   <script src="{{ url_for('static', filename='science_quiz.js') }}"></script>
+  <script src="{{ url_for('static', filename='utility.js') }}"></script>
+  <script src="{{ url_for('static', filename='history_quiz.js') }}"></script>
 
   <script>
     function openTab(tabName) {
