@@ -59,7 +59,6 @@
         <canvas id="snlCanvas" width="400" height="400"></canvas>
         <button id="rollDiceBtn">Roll Dice</button>
         <button id="snlRestartBtn">Restart</button>
-        <button id="snlRestartBtn">Restart</button>
         <p id="diceResult">Roll to start the game!</p>
       </section>
 
@@ -246,6 +245,13 @@
     </section>
   </main>
 
+  <!-- Site hit counter (bottom-right) -->
+  <div class="hit-counter" role="status" aria-live="polite" title="Total site visits">
+    <span class="hit-eye" aria-hidden="true">👁️</span>
+    <span class="hit-label">Visits</span>
+    <strong class="hit-number">{{ hit_count }}</strong>
+  </div>
+
   <!-- JS files -->
   <script src="{{ url_for('static', filename='snake.js') }}"></script>
   <script src="{{ url_for('static', filename='snl.js') }}"></script>
@@ -286,5 +292,39 @@
     openTab('gamehub');
     openInnerTab('snake');
   </script>
+
+  <!-- Inline CSS for hit counter badge -->
+  <style>
+    .hit-counter {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      font: 600 13px/1.2 'Poppins', 'Segoe UI', sans-serif;
+      color: #0b0f19;
+      background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.88));
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 999px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.22);
+      backdrop-filter: blur(6px) saturate(120%);
+      -webkit-backdrop-filter: blur(6px) saturate(120%);
+    }
+    .hit-counter .hit-eye { font-size: 16px; }
+    .hit-counter .hit-label { color: #374151; letter-spacing: 0.2px; }
+    .hit-counter .hit-number { color: #111827; font-weight: 700; }
+    @media (max-width: 480px) {
+      .hit-counter {
+        right: 10px;
+        bottom: 10px;
+        padding: 6px 10px;
+        font-size: 12px;
+        gap: 6px;
+      }
+    }
+  </style>
 </body>
 </html>
