@@ -33,6 +33,7 @@
         <button class="tablink gold" onclick="openInnerTab('snake')">Snake Game</button>
         <button class="tablink gold" onclick="openInnerTab('snl')">Snakes & Ladders</button>
         <button class="tablink gold" onclick="openInnerTab('tictactoe')">Tic Tac Toe</button>
+        <button class="tablink gold" onclick="openInnerTab('wordsearch')">Word Search</button>
       </nav>
 
       <!-- Snake Game -->
@@ -73,6 +74,22 @@
         <div id="tictactoeBoard" class="board"></div>
         <p id="tictactoeResult"></p>
         <button onclick="restartTicTacToe()">Restart</button>
+      </section>
+
+      <!-- Word Search -->
+      <section id="wordsearch" class="inner-tabcontent">
+        <h2>Word Search</h2>
+        <div class="ws-container" style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;">
+          <div id="wsGrid" aria-label="Word search grid" role="grid" style="display:grid; grid-template-columns:repeat(10,32px); grid-auto-rows:32px; gap:4px; user-select:none;"></div>
+          <div class="ws-side" style="min-width:200px; max-width:260px;">
+            <h3 style="margin: 0 0 8px 0;">Find these words</h3>
+            <ul id="wsWordList" style="list-style: none; padding: 0; margin: 0 0 8px 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px;"></ul>
+            <div class="quiz-actions">
+              <button id="wsNewBtn" class="btn-outline" type="button">New Puzzle</button>
+            </div>
+            <p id="wsStatus" style="margin:10px 0 0 0; font-weight:600;"></p>
+          </div>
+        </div>
       </section>
 
     </section>
@@ -255,6 +272,7 @@
   <script src="{{ url_for('static', filename='snake.js') }}"></script>
   <script src="{{ url_for('static', filename='snl.js') }}"></script>
   <script src="{{ url_for('static', filename='tictactoe.js') }}"></script>
+  <script src="{{ url_for('static', filename='wordsearch.js') }}"></script>
   <script src="{{ url_for('static', filename='quiz.js') }}"></script>
   <script src="{{ url_for('static', filename='science_quiz.js') }}"></script>
   <script src="{{ url_for('static', filename='utility.js') }}"></script>
