@@ -323,3 +323,103 @@ canvas {
   display: block;
   margin: 20px auto;
 }
+
+/* Bottom-right site hit counter badge */
+.hit-counter {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  padding: 8px 12px;
+  border-radius: 12px;
+  color: #e5e7eb;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--prem-card-border);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+  backdrop-filter: saturate(120%) blur(6px);
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .hit-counter {
+    right: 10px;
+    bottom: 10px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+/* Bottom-right site hit counter badge */
+.hit-counter {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  padding: 8px 12px;
+  border-radius: 12px;
+  color: #e5e7eb;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--prem-card-border);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+  backdrop-filter: saturate(120%) blur(6px);
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .hit-counter {
+    right: 10px;
+    bottom: 10px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+/* Bottom-right site hit counter badge */
+.hit-counter {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  padding: 8px 12px;
+  border-radius: 12px;
+  color: #e5e7eb;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--prem-card-border);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+  backdrop-filter: saturate(120%) blur(6px);
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .hit-counter {
+    right: 10px;
+    bottom: 10px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+/* Bottom-right site hit counter badge */
+.hit-counter {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  padding: 8px 12px;
+  border-radius: 12px;
+  color: #e5e7eb;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--prem-card-border);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+  backdrop-filter: saturate(120%) blur(6px);
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .hit-counter {
+    right: 10px;
+    bottom: 10px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
