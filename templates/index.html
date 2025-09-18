@@ -33,7 +33,6 @@
         <button class="tablink gold" onclick="openInnerTab('snake')">Snake Game</button>
         <button class="tablink gold" onclick="openInnerTab('snl')">Snakes & Ladders</button>
         <button class="tablink gold" onclick="openInnerTab('tictactoe')">Tic Tac Toe</button>
-        <button class="tablink gold" onclick="openInnerTab('moto')">Moto X3M</button>
       </nav>
 
       <!-- Snake Game -->
@@ -43,13 +42,19 @@
         <p id="snakeScore">Score: 0</p>
 
         <div class="snake-controls">
-          <button onclick="restartSnake()">Restart</button>
-          <div class="arrow-buttons-inline">
-            <button onclick="setDirectionFromButton('LEFT')">←</button>
-            <button onclick="setDirectionFromButton('UP')">↑</button>
-            <button onclick="setDirectionFromButton('DOWN')">↓</button>
-            <button onclick="setDirectionFromButton('RIGHT')">→</button>
+          <div class="dpad" role="group" aria-label="Snake controls">
+            <div class="dpad-row dpad-row-top">
+              <button class="dpad-btn up" onclick="setDirectionFromButton('UP')" aria-label="Up">↑</button>
+            </div>
+            <div class="dpad-row dpad-row-middle">
+              <button class="dpad-btn left" onclick="setDirectionFromButton('LEFT')" aria-label="Left">←</button>
+              <button class="dpad-btn right" onclick="setDirectionFromButton('RIGHT')" aria-label="Right">→</button>
+            </div>
+            <div class="dpad-row dpad-row-bottom">
+              <button class="dpad-btn down" onclick="setDirectionFromButton('DOWN')" aria-label="Down">↓</button>
+            </div>
           </div>
+          <button class="btn-outline" onclick="restartSnake()">Restart</button>
         </div>
       </section>
 
@@ -70,13 +75,6 @@
         <button onclick="restartTicTacToe()">Restart</button>
       </section>
 
-      <!-- Moto X3M -->
-      <section id="moto" class="inner-tabcontent">
-        <h2>Moto X3M (Simplified)</h2>
-        <canvas id="motoCanvas" width="600" height="300"></canvas>
-        <p id="motoControls">Controls: ↑ accelerate | ↓ brake | ← tilt back | → tilt forward</p>
-        <button onclick="restartMoto()">Restart</button>
-      </section>
     </section>
 
     <!-- Quiz Hub with inner tabs -->
@@ -124,6 +122,7 @@
             <button id="quizPlayAgain" class="btn-gold">Play Again</button>
             <button id="quizChangeGrade" class="btn-outline">Change Grade</button>
           </div>
+          <button class="btn-outline" onclick="restartSnake()">Restart</button>
         </div>
       </section>
 
@@ -256,7 +255,6 @@
   <script src="{{ url_for('static', filename='snake.js') }}"></script>
   <script src="{{ url_for('static', filename='snl.js') }}"></script>
   <script src="{{ url_for('static', filename='tictactoe.js') }}"></script>
-  <script src="{{ url_for('static', filename='moto.js') }}"></script>
   <script src="{{ url_for('static', filename='quiz.js') }}"></script>
   <script src="{{ url_for('static', filename='science_quiz.js') }}"></script>
   <script src="{{ url_for('static', filename='utility.js') }}"></script>
