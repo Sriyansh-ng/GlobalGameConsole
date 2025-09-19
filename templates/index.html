@@ -228,6 +228,8 @@
     <section id="utilityhub" class="tabcontent">
       <nav class="inner-tabs">
         <button class="tablink gold" onclick="openInnerTab('qrgen')">QR Code Generator</button>
+        <button class="tablink gold" onclick="openInnerTab('passgen')">Password Generator</button>
+        <button class="tablink gold" onclick="openInnerTab('countdown')">Countdown Timer</button>
       </nav>
 
       <section id="qrgen" class="inner-tabcontent">
@@ -247,6 +249,88 @@
         </div>
         <div id="qrOutput" class="qr-output" style="display:none;">
           <img id="qrImage" alt="Generated QR code">
+        </div>
+      </section>
+
+      <section id="passgen" class="inner-tabcontent">
+        <h2>Password Generator</h2>
+        <div class="pw-form" style="display:grid; gap:12px; max-width:560px;">
+          <div class="pw-row" style="display:block; width:100%;">
+            <input id="pwOutput" type="text" class="qr-input" placeholder="Your new password will appear here" readonly style="width:100%; max-width:none; display:block;" />
+          </div>
+          <div class="pw-row-actions" style="display:flex; justify-content:flex-end; width:100%; margin-top:-4px; margin-bottom:6px;">
+            <button id="pwCopyBtn" class="btn-outline" type="button" aria-label="Copy password" style="white-space:nowrap;">Copy</button>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:10px;">
+            <label style="display:flex; align-items:center; gap:8px;">
+              <span>Length</span>
+              <input id="pwLength" type="number" min="4" max="64" value="16" class="quiz-select" style="width:90px;">
+            </label>
+
+            <label style="display:flex; align-items:center; gap:8px;">
+              <input id="pwAmbiguous" type="checkbox">
+              <span>Avoid ambiguous (0/O, 1/l, etc.)</span>
+            </label>
+
+            <label style="display:flex; align-items:center; gap:8px;">
+              <input id="pwLower" type="checkbox" checked>
+              <span>Lowercase</span>
+            </label>
+
+            <label style="display:flex; align-items:center; gap:8px;">
+              <input id="pwUpper" type="checkbox" checked>
+              <span>Uppercase</span>
+            </label>
+
+            <label style="display:flex; align-items:center; gap:8px;">
+              <input id="pwNumbers" type="checkbox" checked>
+              <span>Numbers</span>
+            </label>
+
+            <label style="display:flex; align-items:center; gap:8px;">
+              <input id="pwSymbols" type="checkbox" checked>
+              <span>Symbols</span>
+            </label>
+          </div>
+
+          <div class="quiz-actions">
+            <button id="pwGenerateBtn" class="btn-gold" type="button">Generate Password</button>
+          </div>
+
+          <div id="pwStrength" style="font-size:12px; color:#374151;"></div>
+        </div>
+      </section>
+
+      <section id="countdown" class="inner-tabcontent">
+        <h2>Countdown Timer</h2>
+        <div class="cd-wrap" style="display:grid; gap:14px; max-width:560px;">
+          <div class="cd-row" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <label style="display:flex; align-items:center; gap:6px;">
+              <span>Minutes</span>
+              <input id="cdMin" type="number" min="0" max="999" value="5" class="quiz-select" style="width:90px;">
+            </label>
+            <label style="display:flex; align-items:center; gap:6px;">
+              <span>Seconds</span>
+              <input id="cdSec" type="number" min="0" max="59" value="0" class="quiz-select" style="width:90px;">
+            </label>
+          </div>
+
+          <div class="ws-timer" aria-live="polite" style="display:grid; gap:6px;">
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <span style="font-weight:600; color:#111827;">Time</span>
+              <span id="cdText" style="font-weight:800; letter-spacing:0.5px; color:#111827;">05:00</span>
+            </div>
+            <div class="ws-timer-bar" style="height:12px; background:#e5e7eb; border-radius:999px; overflow:hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);">
+              <div id="cdFill" style="height:100%; width:100%; background:linear-gradient(90deg,#10b981,#f59e0b,#ef4444); transition: width 0.25s linear;"></div>
+            </div>
+          </div>
+
+          <div class="quiz-actions" style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button id="cdStart" class="btn-gold" type="button">Start</button>
+            <button id="cdPause" class="btn-outline" type="button" disabled>Pause</button>
+            <button id="cdReset" class="btn-outline" type="button">Reset</button>
+          </div>
         </div>
       </section>
     </section>
@@ -276,6 +360,8 @@
   <script src="{{ url_for('static', filename='quiz.js') }}"></script>
   <script src="{{ url_for('static', filename='science_quiz.js') }}"></script>
   <script src="{{ url_for('static', filename='utility.js') }}"></script>
+  <script src="{{ url_for('static', filename='password.js') }}"></script>
+  <script src="{{ url_for('static', filename='countdown.js') }}"></script>
   <script src="{{ url_for('static', filename='history_quiz.js') }}"></script>
 
   <script>

@@ -6,6 +6,17 @@
   const wordListEl = document.getElementById('wsWordList');
   const statusEl = document.getElementById('wsStatus');
   const newBtn = document.getElementById('wsNewBtn');
+  const timerWrap = document.getElementById('wsTimer');
+  const timerText = document.getElementById('wsTimerText');
+  const timerFill = document.getElementById('wsTimerFill');
+  // Also support multiple timer UIs via classes (floating card, etc.)
+  const timerTexts = document.querySelectorAll('.wsTimerText');
+  const timerFills = document.querySelectorAll('.wsTimerFill');
+
+  const TOTAL_MS = 3 * 60 * 1000; // 3 minutes
+  let timerId = null;
+  let endTime = 0;
+  let timeUp = false;
 
   const gridSize = 10;
   const directions = [
@@ -262,6 +273,8 @@
       statusEl.textContent = `Find ${remaining} more ${remaining === 1 ? 'word' : 'words'}.`;
     } else {
       statusEl.textContent = 'Great job! Puzzle complete 🎉';
+      // Stop the timer on success
+      stopTimer(false);
     }
   }
 
@@ -285,6 +298,10 @@
   }
 
   function onCellClick(e) {
+    if (timeUp) {
+      return; // ignore input when time is up
+    }
+
     const r = parseInt(e.currentTarget.dataset.r, 10);
     const c = parseInt(e.currentTarget.dataset.c, 10);
 
@@ -339,6 +356,72 @@
     return arr;
   }
 
+  function formatTime(ms) {
+    const total = Math.max(0, Math.ceil(ms / 1000));
+    const m = Math.floor(total / 60);
+    const s = total % 60;
+    return `${String(m)}:${String(s).padStart(2, '0')}`;
+    }
+
+  function stopTimer(finalize = true) {
+    if (timerId) {
+      clearInterval(timerId);
+      timerId = null;
+    }
+    if (finalize) {
+      if (timerText) timerText.textContent = '00:00';
+      timerTexts.forEach(el => el.textContent = '00:00');
+      // Keep fill at current width; no change needed here
+    }
+  }
+
+  function tick() {
+    const now = Date.now();
+    const msLeft = Math.max(0, endTime - now);
+    const pct = (msLeft / TOTAL_MS) * 100;
+
+    if (timerFill) timerFill.style.width = `${pct}%`;
+    timerFills.forEach(el => { el.style.width = `${pct}%`; });
+
+    const color = msLeft <= 60000 ? '#b91c1c' : msLeft <= 120000 ? '#b45309' : '#111827';
+    const timeStr = formatTime(msLeft);
+
+    if (timerText) {
+      timerText.textContent = timeStr;
+      timerText.style.color = color;
+    }
+    timerTexts.forEach(el => {
+      el.textContent = timeStr;
+      el.style.color = color;
+    });
+
+    if (msLeft <= 0) {
+      timeUp = true;
+      stopTimer(false);
+      if (statusEl) statusEl.textContent = "Time's up! Click New Puzzle to try again.";
+    }
+  }
+
+  function startTimer() {
+    stopTimer(false);
+    timeUp = false;
+    endTime = Date.now() + TOTAL_MS;
+    // Reset visuals
+    if (timerFill) timerFill.style.width = '100%';
+    timerFills.forEach(el => { el.style.width = '100%'; });
+    const startStr = formatTime(TOTAL_MS);
+    if (timerText) {
+      timerText.textContent = startStr;
+      timerText.style.color = '#111827';
+    }
+    timerTexts.forEach(el => {
+      el.textContent = startStr;
+      el.style.color = '#111827';
+    });
+    tick();
+    timerId = setInterval(tick, 250);
+  }
+
   function newPuzzle() {
     selectedStart = null;
     resetSelectionHighlight();
@@ -346,6 +429,7 @@
     activeWords = words;
     generateGrid(words);
     render(words);
+    startTimer();
   }
 
   // Bindings
