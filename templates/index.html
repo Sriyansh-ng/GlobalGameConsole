@@ -100,6 +100,7 @@
         <button class="tablink gold" onclick="openInnerTab('quizGeneral')">General Quiz</button>
         <button class="tablink gold" onclick="openInnerTab('quizScience')">Science Quiz</button>
         <button class="tablink gold" onclick="openInnerTab('quizHistory')">History Quiz</button>
+        <button class="tablink gold" onclick="openInnerTab('quizMath')">Math Quiz</button>
       </nav>
 
       <section id="quizGeneral" class="inner-tabcontent">
@@ -222,6 +223,46 @@
           </div>
         </div>
       </section>
+
+      <section id="quizMath" class="inner-tabcontent">
+        <h2>Math Quiz</h2>
+
+        <div id="mathQuizSetup" class="quiz-setup">
+          <p>Select a grade level to begin:</p>
+          <select id="mathGradeSelect" class="quiz-select">
+            <option value="" selected disabled>Choose grade</option>
+            <option value="grade1">Grade 1</option>
+            <option value="grade2">Grade 2</option>
+            <option value="grade3">Grade 3</option>
+          </select>
+          <button id="mathStartQuizBtn" class="btn-gold">Start Quiz</button>
+        </div>
+
+        <div id="mathQuizContainer" class="quiz-container" style="display:none;">
+          <div class="quiz-card">
+            <div class="quiz-header">
+              <span id="mathQuizProgress">Question 1 of 5</span>
+            </div>
+            <h3 id="mathQuizQuestion">Question text</h3>
+            <div id="mathQuizOptions" class="quiz-options">
+              <!-- Options injected by JS -->
+            </div>
+            <div class="quiz-actions">
+              <button id="mathQuizSubmitBtn" class="btn-gold" disabled>Submit</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="mathQuizResult" class="quiz-result" style="display:none;">
+          <h3>Round Complete!</h3>
+          <p id="mathQuizScore">You scored 0 out of 5.</p>
+          <div id="mathQuizReview" class="quiz-review" style="display:none;"></div>
+          <div class="quiz-actions">
+            <button id="mathQuizPlayAgain" class="btn-gold">Play Again</button>
+            <button id="mathQuizChangeGrade" class="btn-outline">Change Grade</button>
+          </div>
+        </div>
+      </section>
     </section>
 
     <!-- Utility Hub with inner tabs -->
@@ -230,6 +271,7 @@
         <button class="tablink gold" onclick="openInnerTab('qrgen')">QR Code Generator</button>
         <button class="tablink gold" onclick="openInnerTab('passgen')">Password Generator</button>
         <button class="tablink gold" onclick="openInnerTab('countdown')">Countdown Timer</button>
+        <button class="tablink gold" onclick="openInnerTab('unitconv')">Unit Converter</button>
       </nav>
 
       <section id="qrgen" class="inner-tabcontent">
@@ -333,6 +375,55 @@
           </div>
         </div>
       </section>
+
+      <section id="unitconv" class="inner-tabcontent">
+        <h2>Unit Converter</h2>
+        <div class="uc-wrap" style="display:grid; gap:14px; max-width:640px;">
+          <div class="uc-row" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <label style="display:flex; align-items:center; gap:8px;">
+              <span>Category</span>
+              <select id="ucCategory" class="quiz-select">
+                <option value="length">Length</option>
+                <option value="weight">Weight</option>
+                <option value="temperature">Temperature</option>
+              </select>
+            </label>
+
+            <label style="display:flex; align-items:center; gap:8px;">
+              <span>Value</span>
+              <input id="ucValue" type="number" class="qr-input" placeholder="Enter value" style="width:140px;">
+            </label>
+          </div>
+
+          <div class="uc-row" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <label style="display:flex; align-items:center; gap:8px;">
+              <span>From</span>
+              <select id="ucFrom" class="quiz-select"></select>
+            </label>
+
+            <button id="ucSwap" class="btn-outline" type="button" aria-label="Swap units">Swap</button>
+
+            <label style="display:flex; align-items:center; gap:8px;">
+              <span>To</span>
+              <select id="ucTo" class="quiz-select"></select>
+            </label>
+          </div>
+
+          <div class="quiz-actions">
+            <button id="ucConvert" class="btn-gold" type="button">Convert</button>
+          </div>
+
+          <div class="uc-result" style="display:grid; gap:8px;">
+            <label style="display:flex; align-items:center; gap:8px;">
+              <span>Result</span>
+              <input id="ucResult" type="text" class="qr-input" placeholder="Converted value" readonly style="flex:1 1 auto; max-width:none;">
+            </label>
+            <div class="quiz-actions" style="justify-content:flex-end;">
+              <button id="ucCopy" class="btn-outline" type="button">Copy</button>
+            </div>
+          </div>
+        </div>
+      </section>
     </section>
 
     <!-- About Us -->
@@ -359,9 +450,11 @@
   <script src="{{ url_for('static', filename='wordsearch.js') }}"></script>
   <script src="{{ url_for('static', filename='quiz.js') }}"></script>
   <script src="{{ url_for('static', filename='science_quiz.js') }}"></script>
+  <script src="{{ url_for('static', filename='math_quiz.js') }}"></script>
   <script src="{{ url_for('static', filename='utility.js') }}"></script>
   <script src="{{ url_for('static', filename='password.js') }}"></script>
   <script src="{{ url_for('static', filename='countdown.js') }}"></script>
+  <script src="{{ url_for('static', filename='unit_converter.js') }}"></script>
   <script src="{{ url_for('static', filename='history_quiz.js') }}"></script>
 
   <script>
