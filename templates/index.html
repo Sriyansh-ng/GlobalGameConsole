@@ -23,6 +23,7 @@
     <button class="tablink gold" onclick="openTab('gamehub')"><span class="icon">🎮</span>Game Hub</button>
     <button class="tablink gold" onclick="openTab('quizhub')"><span class="icon">❓</span>Quiz Hub</button>
     <button class="tablink gold" onclick="openTab('utilityhub')"><span class="icon">🧰</span>Utility Hub</button>
+    <button class="tablink gold" onclick="openTab('newshub')"><span class="icon">📰</span>News Hub</button>
     <button class="tablink" onclick="openTab('about')"><span class="icon">ℹ️</span>About Us</button>
   </nav>
 
@@ -426,6 +427,21 @@
       </section>
     </section>
 
+    <!-- News Hub -->
+    <section id="newshub" class="tabcontent">
+      <h2>News Hub</h2>
+      <div class="news-form" style="display:grid; gap:12px; max-width:560px;">
+        <input id="newsQuery" type="text" class="qr-input" placeholder="Search news category (e.g., sports, politics, technology)" />
+        <div class="quiz-actions">
+          <button id="newsSearchBtn" class="btn-gold" type="button">Search News</button>
+          <button id="newsLuckyBtn" class="btn-outline" type="button">I'm Feeling Curious</button>
+        </div>
+        <p style="color:#e0e0e0; font-size:0.9rem; margin:0;">
+          Opens a pop-up with the latest results for your category.
+        </p>
+      </div>
+    </section>
+
     <!-- About Us -->
     <section id="about" class="tabcontent">
       <h2>About Us</h2>
@@ -455,6 +471,7 @@
   <script src="{{ url_for('static', filename='password.js') }}"></script>
   <script src="{{ url_for('static', filename='countdown.js') }}"></script>
   <script src="{{ url_for('static', filename='unit_converter.js') }}"></script>
+  <script src="{{ url_for('static', filename='news.js') }}"></script>
   <script src="{{ url_for('static', filename='history_quiz.js') }}"></script>
 
   <script>
