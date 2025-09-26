@@ -35,6 +35,7 @@
         <button class="tablink gold" onclick="openInnerTab('snl')">Snakes & Ladders</button>
         <button class="tablink gold" onclick="openInnerTab('tictactoe')">Tic Tac Toe</button>
         <button class="tablink gold" onclick="openInnerTab('wordsearch')">Word Search</button>
+        <button class="tablink gold" onclick="openInnerTab('pacman')">Pac-Man</button>
       </nav>
 
       <!-- Snake Game -->
@@ -91,6 +92,31 @@
             <p id="wsStatus" style="margin:10px 0 0 0; font-weight:600;"></p>
           </div>
         </div>
+      </section>
+
+      <!-- Pac-Man -->
+      <section id="pacman" class="inner-tabcontent">
+        <h2>Pac-Man</h2>
+        <canvas id="pacmanCanvas" width="448" height="448"></canvas>
+        <p id="pacmanScore">Score: 0</p>
+
+        <div class="snake-controls">
+          <div class="dpad" role="group" aria-label="Pac-Man controls">
+            <div class="dpad-row dpad-row-top">
+              <button class="dpad-btn up" onclick="pacmanSetDirection('UP')" aria-label="Up">↑</button>
+            </div>
+            <div class="dpad-row dpad-row-middle">
+              <button class="dpad-btn left" onclick="pacmanSetDirection('LEFT')" aria-label="Left">←</button>
+              <button class="dpad-btn right" onclick="pacmanSetDirection('RIGHT')" aria-label="Right">→</button>
+            </div>
+            <div class="dpad-row dpad-row-bottom">
+              <button class="dpad-btn down" onclick="pacmanSetDirection('DOWN')" aria-label="Down">↓</button>
+            </div>
+          </div>
+          <button class="btn-outline" onclick="restartPacman()">Restart</button>
+        </div>
+
+        <p style="font-size:12px; color:#9ca3af; margin-top:6px;">Use arrow keys or the D‑Pad to move.</p>
       </section>
 
     </section>
@@ -273,6 +299,7 @@
         <button class="tablink gold" onclick="openInnerTab('passgen')">Password Generator</button>
         <button class="tablink gold" onclick="openInnerTab('countdown')">Countdown Timer</button>
         <button class="tablink gold" onclick="openInnerTab('unitconv')">Unit Converter</button>
+        <button class="tablink gold" onclick="openInnerTab('colorpal')">Color Palette</button>
       </nav>
 
       <section id="qrgen" class="inner-tabcontent">
@@ -425,6 +452,44 @@
           </div>
         </div>
       </section>
+
+      <section id="colorpal" class="inner-tabcontent">
+        <h2>Color Palette</h2>
+        <div class="uc-wrap" style="display:grid; gap:14px; max-width:860px;">
+          <div class="uc-row" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+            <label style="display:flex; align-items:center; gap:8px;">
+              <span>Base</span>
+              <input id="cpBase" type="color" class="quiz-select" value="#ffeb3b" style="width:56px; height:38px; padding:0;">
+            </label>
+
+            <label style="display:flex; align-items:center; gap:8px;">
+              <span>Colors</span>
+              <input id="cpCount" type="number" min="3" max="10" value="5" class="quiz-select" style="width:90px;">
+            </label>
+
+            <label style="display:flex; align-items:center; gap:8px;">
+              <span>Scheme</span>
+              <select id="cpScheme" class="quiz-select">
+                <option value="monochrome">Monochrome</option>
+                <option value="analogous">Analogous</option>
+                <option value="complementary" selected>Complementary</option>
+                <option value="triadic">Triadic</option>
+                <option value="split">Split-Complementary</option>
+                <option value="tetradic">Tetradic</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="quiz-actions" style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button id="cpGenerate" class="btn-gold" type="button">Generate</button>
+            <button id="cpRandom" class="btn-outline" type="button">Randomize</button>
+          </div>
+
+          <div id="cpOutput" class="cp-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px;">
+            <!-- Swatches injected by JS -->
+          </div>
+        </div>
+      </section>
     </section>
 
     <!-- News Hub -->
@@ -471,8 +536,10 @@
   <script src="{{ url_for('static', filename='password.js') }}"></script>
   <script src="{{ url_for('static', filename='countdown.js') }}"></script>
   <script src="{{ url_for('static', filename='unit_converter.js') }}"></script>
+  <script src="{{ url_for('static', filename='color_palette.js') }}"></script>
   <script src="{{ url_for('static', filename='news.js') }}"></script>
   <script src="{{ url_for('static', filename='history_quiz.js') }}"></script>
+  <script src="{{ url_for('static', filename='pacman.js') }}"></script>
 
   <script>
     function openTab(tabName) {
