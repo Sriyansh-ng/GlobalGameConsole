@@ -103,18 +103,66 @@
         <div class="snake-controls">
           <div class="dpad" role="group" aria-label="Pac-Man controls">
             <div class="dpad-row dpad-row-top">
-              <button class="dpad-btn up" onclick="pacmanSetDirection('UP')" aria-label="Up">↑</button>
+              <button class="dpad-btn up" onclick="pacmanSetDirection('UP')" aria-label="Up" type="button">↑</button>
             </div>
             <div class="dpad-row dpad-row-middle">
-              <button class="dpad-btn left" onclick="pacmanSetDirection('LEFT')" aria-label="Left">←</button>
-              <button class="dpad-btn right" onclick="pacmanSetDirection('RIGHT')" aria-label="Right">→</button>
+              <button class="dpad-btn left" onclick="pacmanSetDirection('LEFT')" aria-label="Left" type="button">←</button>
+              <button class="dpad-btn right" onclick="pacmanSetDirection('RIGHT')" aria-label="Right" type="button">→</button>
             </div>
             <div class="dpad-row dpad-row-bottom">
-              <button class="dpad-btn down" onclick="pacmanSetDirection('DOWN')" aria-label="Down">↓</button>
+              <button class="dpad-btn down" onclick="pacmanSetDirection('DOWN')" aria-label="Down" type="button">↓</button>
             </div>
           </div>
-          <button class="btn-outline" onclick="restartPacman()">Restart</button>
+          <button class="btn-outline" onclick="restartPacman()" type="button">Restart</button>
         </div>
+        <script>
+          // Robustly trigger the same path as keyboard controls
+          (function () {
+            function fireKey(target, detail) {
+              try {
+                const e = new KeyboardEvent('keydown', {
+                  key: detail.key,
+                  code: detail.code,
+                  bubbles: true,
+                  cancelable: true
+                });
+                // Some engines ignore keyCode/which on init; define getters
+                try { Object.defineProperty(e, 'keyCode', { get: () => detail.keyCode }); } catch (_) {}
+                try { Object.defineProperty(e, 'which', { get: () => detail.which }); } catch (_) {}
+                target.dispatchEvent(e);
+              } catch (_) {
+                // Fallback generic event
+                const e = new Event('keydown', { bubbles: true, cancelable: true });
+                e.key = detail.key;
+                e.code = detail.code;
+                e.keyCode = detail.keyCode;
+                e.which = detail.which;
+                target.dispatchEvent(e);
+              }
+            }
+
+            window.pacmanSetDirection = function (dir) {
+              const map = {
+                UP:    { key: 'ArrowUp',    code: 'ArrowUp',    keyCode: 38, which: 38 },
+                DOWN:  { key: 'ArrowDown',  code: 'ArrowDown',  keyCode: 40, which: 40 },
+                LEFT:  { key: 'ArrowLeft',  code: 'ArrowLeft',  keyCode: 37, which: 37 },
+                RIGHT: { key: 'ArrowRight', code: 'ArrowRight', keyCode: 39, which: 39 }
+              };
+              const detail = map[dir];
+              if (!detail) return;
+
+              const canvas = document.getElementById('pacmanCanvas');
+              const targets = [window, document];
+              if (document.body) targets.push(document.body);
+              if (canvas) targets.push(canvas);
+
+              // Dispatch to multiple common listeners
+              for (const t of targets) {
+                fireKey(t, detail);
+              }
+            };
+          })();
+        </script>
 
         <p style="font-size:12px; color:#9ca3af; margin-top:6px;">Use arrow keys or the D‑Pad to move.</p>
       </section>
