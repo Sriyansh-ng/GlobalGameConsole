@@ -10,6 +10,7 @@
   <!-- Modern UI font and theme overrides -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+  <script defer src="{{ url_for('static', filename='tabs-inner.js') }}"></script>
 </head>
 <body>
   <header>
@@ -20,12 +21,40 @@
   </header>
 
   <nav class="tabs">
-    <button class="tablink gold" onclick="openTab('gamehub')"><span class="icon">🎮</span>Game Hub</button>
-    <button class="tablink gold" onclick="openTab('quizhub')"><span class="icon">❓</span>Quiz Hub</button>
-    <button class="tablink gold" onclick="openTab('utilityhub')"><span class="icon">🧰</span>Utility Hub</button>
-    <button class="tablink gold" onclick="openTab('newshub')"><span class="icon">📰</span>News Hub</button>
+    <button class="tablink gold" onclick="switchTab('gamehub', this)"><span class="icon">🎮</span>Game Hub</button>
+    <button class="tablink gold" onclick="switchTab('quizhub', this)"><span class="icon">❓</span>Quiz Hub</button>
+    <button class="tablink gold" onclick="switchTab('utilityhub', this)"><span class="icon">🧰</span>Utility Hub</button>
+    <button class="tablink gold" onclick="switchTab('newshub', this)"><span class="icon">📰</span>News Hub</button>
     <button class="tablink" onclick="openTab('about')"><span class="icon">ℹ️</span>About Us</button>
   </nav>
+  <script>
+    // Main hub active highlighter without breaking existing openTab()
+    function switchTab(tabId, btn) {
+      // Remove active from all top-level tabs and set on clicked
+      try {
+        document.querySelectorAll('nav.tabs .tablink').forEach(function (b) {
+          b.classList.remove('active');
+          b.removeAttribute('aria-current');
+        });
+        if (btn) {
+          btn.classList.add('active');
+          btn.setAttribute('aria-current', 'page');
+        }
+      } catch (e) {}
+
+      // Delegate to existing tab logic if present
+      if (typeof window.openTab === 'function') {
+        window.openTab(tabId);
+        return;
+      }
+
+      // Fallback: simple show/hide if openTab is not defined
+      var all = document.querySelectorAll('.tabcontent');
+      all.forEach(function (el) { el.style.display = 'none'; });
+      var target = document.getElementById(tabId);
+      if (target) target.style.display = 'block';
+    }
+  </script>
 
   <main>
     <!-- Game Hub with inner tabs -->

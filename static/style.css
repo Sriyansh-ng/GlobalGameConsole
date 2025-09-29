@@ -499,3 +499,41 @@ button:hover {
   color: #ff6b6b;
 }
 
+/* ===== Active Main Hub Tab Highlighter ===== */
+/* Strong selector + !important to win over theme overrides */
+.tabs .tablink.active,
+.tabs .tablink.gold.active {
+  color: #ffffff !important;
+  border: 1px solid rgba(34, 197, 94, 0.7) !important;
+  background:
+    radial-gradient(120px 120px at 50% 50%, rgba(72, 187, 120, 0.35), transparent 60%),
+    linear-gradient(180deg, #22c55e, #16a34a) !important; /* green gradient core */
+  box-shadow:
+    0 0 0 2px rgba(34, 197, 94, 0.35) inset,
+    0 10px 20px rgba(34, 197, 94, 0.35),
+    0 0 18px rgba(34, 197, 94, 0.55),
+    0 0 34px rgba(34, 197, 94, 0.35);
+  position: relative;
+  transform: translateY(-1px);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+/* ===== Active Main Hub Tab Highlighter ===== */
+/* Strong selector + !important to win over theme overrides */
+.tabs .tablink.active,
+.tabs .tablink.gold.active {
+  color: #ffffff !important;
+  border: 1px solid rgba(34, 197, 94, 0.7) !important;
+  background:
+    radial-gradient(120px 120px at 50% 50%, rgba(72, 187, 120, 0.35), transparent 60%),
+    linear-gradient(180deg, #22c55e, #16a34a) !important; /* green gradient core */
+  box-shadow:
+    0 0 0 2px rgba(34, 197, 94, 0.35) inset,
+    0 10px 20px rgba(34, 197, 94, 0.35),
+    0 0 18px rgba(34, 197, 94, 0.55),
+    0 0 34px rgba(34, 197, 94, 0.35);
+  position: relative;
+  transform: translateY(-1px);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
